@@ -107,6 +107,7 @@ func New(conf Config) *Client {
 
 func (c *Client) startChild() (*exec.Cmd, error) {
 	subProcess := exec.Command(c.childPath, c.childArgs...)
+	subProcess.SysProcAttr = SetSysProcAttrSetPGID()
 
 	stdin, err := subProcess.StdinPipe()
 	if err != nil {
